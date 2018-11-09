@@ -1,6 +1,6 @@
-package Algorithms;
 
-import Algorithms.DP.EggDropping;
+
+import Algorithms.DynamicProgramming.EggDropping;
 
 public class Driver {
 	public static void main(String[] args) {

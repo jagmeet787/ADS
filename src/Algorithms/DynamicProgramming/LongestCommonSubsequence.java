@@ -1,4 +1,4 @@
-package Algorithms.DP;
+package Algorithms.DynamicProgramming;
 
 public class LongestCommonSubsequence {
 	

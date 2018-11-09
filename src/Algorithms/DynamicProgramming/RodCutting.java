@@ -1,4 +1,4 @@
-package Algorithms.DP;
+package Algorithms.DynamicProgramming;
 
 public class RodCutting {
 	private static Integer _rodCuttingRec(Integer[] cuts, Integer start, Integer end) {

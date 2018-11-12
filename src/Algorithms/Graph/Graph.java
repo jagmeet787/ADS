@@ -7,13 +7,14 @@ import java.util.LinkedList;
 
 public class Graph {
 
-	Integer numberOfVertices;
+	final Integer numberOfVertices;
 	LinkedList<Integer>[] adjList;
 	final Boolean directed;
 
+	@SuppressWarnings("unchecked")
 	public Graph ( Integer numberOfVertices ) {
 		this.numberOfVertices = new Integer(numberOfVertices.intValue());
-		adjList = new LinkedList[numberOfVertices];
+		adjList = new LinkedList[this.numberOfVertices.intValue()];
 		for ( int i = 0; i < numberOfVertices; i++) {
 			adjList[i] = new LinkedList<Integer>();
 		}
@@ -24,6 +25,7 @@ public class Graph {
 		return adjList;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Graph ( Integer numberOfVertices, Boolean directed ) {
 		this.numberOfVertices = numberOfVertices;
 		adjList = new LinkedList[numberOfVertices];
@@ -37,17 +39,14 @@ public class Graph {
 		return numberOfVertices;
 	}
 
-
-	public void setNumberOfVertices(Integer numberOfVertices) {
-		this.numberOfVertices = numberOfVertices;
-	}
-
 	public void addEdge ( Integer u, Integer v ) {
+		if ( !this.contains(u) && !this.contains(v)) return;
 		adjList[u].add(v);
 		if ( !directed ) adjList[v].add(u);
 	}
 
 	public void removeEdge ( Integer u, Integer v ) {
+		if ( !this.contains(u) && !this.contains(v)) return;
 		adjList[u].remove(v);
 		if ( !directed ) adjList[v].remove(u);
 	}
@@ -73,12 +72,12 @@ public class Graph {
 	public String toString ( ) {
 		StringBuilder result = new StringBuilder();
 		for ( int v = 0; v < this.numberOfVertices; v++) {
-			result.append("Adjacency List of vertex " + v);
-			result.append(" head");
+			result.append("{[" + v);
+			result.append("]");
 			for ( Integer u : adjList[v]) {
 				result.append(" -> " + u);
 			}
-			result.append('\n');
+			result.append("} ");
 		}
 		return result.toString();
 	}

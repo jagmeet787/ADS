@@ -5,7 +5,6 @@ import java.util.ListIterator;
 
 public class DFS {
 	
-	static Graph G;
 	static boolean[] visited;
 	static LinkedList<Integer>[] adjList;
 	
@@ -23,9 +22,8 @@ public class DFS {
 
 	public static void depthFirstSearch ( Graph graph, Integer start ) {
 		if ( !graph.contains(start) ) return;
-		G = graph; 
 		visited = new boolean[ graph.getNumberOfVertices().intValue() ];
-		adjList = G.getAdjList();
+		adjList = graph.getAdjList();
 		System.out.print("[");
 		_depthFirstSearch(start);
 		System.out.println("\b]");

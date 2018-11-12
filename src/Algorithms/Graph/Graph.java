@@ -74,7 +74,7 @@ public class Graph {
 		StringBuilder result = new StringBuilder();
 		for ( int v = 0; v < this.numberOfVertices; v++) {
 			result.append("Adjacency List of vertex " + v);
-			result.append("head ");
+			result.append(" head");
 			for ( Integer u : adjList[v]) {
 				result.append(" -> " + u);
 			}

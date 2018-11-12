@@ -3,8 +3,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class BFS {		
-	public static void bfsTraversal ( Graph graph, int start ) {
-		boolean[] visited = new boolean[graph.getNumberOfVertices()];
+	public static void breathFirstSearch ( Graph graph, int start ) {
+		boolean[] visited = new boolean[graph.getNumberOfVertices().intValue()];
 		LinkedList<Integer>[] adjList = graph.getAdjList();
 		LinkedList<Integer> queue = new LinkedList<Integer>();
 

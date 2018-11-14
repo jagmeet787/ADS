@@ -1,83 +1,98 @@
 package Algorithms.Graph;
 
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 // Adjacency list representation of graph
 
 public class Graph {
-
-	final Integer numberOfVertices;
-	LinkedList<Integer>[] adjList;
-	final Boolean directed;
-
-	@SuppressWarnings("unchecked")
-	public Graph ( Integer numberOfVertices ) {
-		this.numberOfVertices = new Integer(numberOfVertices.intValue());
-		adjList = new LinkedList[this.numberOfVertices.intValue()];
-		for ( int i = 0; i < numberOfVertices; i++) {
-			adjList[i] = new LinkedList<Integer>();
-		}
-		this.directed = true;
-	}
-
-	public LinkedList<Integer>[] getAdjList() {
-		return adjList;
-	}
-
-	@SuppressWarnings("unchecked")
-	public Graph ( Integer numberOfVertices, Boolean directed ) {
-		this.numberOfVertices = numberOfVertices;
-		adjList = new LinkedList[numberOfVertices];
-		for ( int i = 0; i < numberOfVertices; i++) {
-			adjList[i] = new LinkedList<Integer>();
-		}
+	
+	HashMap<Node, LinkedList<Edge>> adjList;
+	final boolean directed;
+	final boolean weighted;
+	
+	public Graph ( boolean directed, boolean weighted ) {
+		adjList = new HashMap<Node, LinkedList<Edge>>();
 		this.directed = directed;
+		this.weighted = weighted;
 	}
 	
-	public Integer getNumberOfVertices() {
-		return numberOfVertices;
+	public boolean addNode( Node n ) {
+		if ( adjList.containsKey(n) ) return false;
+		adjList.put(n, new LinkedList<Edge>());
+		return true;
 	}
 
-	public void addEdge ( Integer u, Integer v ) {
-		if ( !this.contains(u) && !this.contains(v)) return;
-		adjList[u].add(v);
-		if ( !directed ) adjList[v].add(u);
-	}
-
-	public void removeEdge ( Integer u, Integer v ) {
-		if ( !this.contains(u) && !this.contains(v)) return;
-		adjList[u].remove(v);
-		if ( !directed ) adjList[v].remove(u);
+	public boolean addEdge ( Edge e ) {
+		if ( !adjList.containsKey(e.getU()) || !adjList.containsKey(e.getV()) ) 
+			return false;
+		LinkedList<Edge> edgeList = adjList.get(e.getU());
+		edgeList.add(e);
+		adjList.put(e.getU(), edgeList);
+		if ( !directed ) {
+			edgeList = adjList.get(e.getV());
+			edgeList.add(new Edge(e.getV(), e.getU(), e.getWeight()));
+			adjList.put(e.getV(), edgeList);
+		}
+		return true;
 	}
 	
-	public Boolean isConnected ( Integer u, Integer v ) {
-		if ( !this.contains(u) && !this.contains(v)) return false;
-		Iterator<Integer> it = this.adjList[u].listIterator();
-		while ( it.hasNext() ) {
-			Integer node = it.next();
-			if ( node.equals(v) ) return true; 
+	public boolean removeEdge ( Edge e ) {
+		if ( !adjList.containsKey(e.getU()) || !adjList.containsKey(e.getV()) ) 
+			return false;
+		LinkedList<Edge> edgeList = adjList.get(e.getU());
+		if ( !edgeList.contains(e) ) return false;
+		edgeList.remove(e);
+		adjList.put(e.getU(), edgeList);
+		if ( !directed ) {
+			edgeList = adjList.get(e.getV());
+			if ( !edgeList.contains(e) ) return false;
+			edgeList.remove(new Edge(e.getV(), e.getU(), e.getWeight()));
+			adjList.put(e.getV(), edgeList);
+		}
+		return true;
+	}
+	
+	public boolean isConnected ( Node u, Node v ) {
+		if ( !adjList.containsKey(u) || !adjList.containsKey(v) ) 
+			return false;
+		LinkedList<Edge> edgeList = adjList.get(u);
+		for (Edge edge : edgeList) {
+			if ( edge.getU().equals(u) && edge.getV().equals(v) ) 
+				return true;
 		}
 		return false;
 	}
 	
-	public Boolean contains ( Integer node ) {
-		if ( node.intValue() < 0 && 
-				node.intValue() > this.numberOfVertices.intValue())
-			return false;
-		return true;
+	public int getNumberOfVertices() {
+		return adjList.size();
 	}
-
+	// returns deep copy of the edge list of n node
+	public LinkedList<Edge> getEdgeList( Node n ) {
+		if ( !adjList.containsKey(n) ) return null;
+		LinkedList<Edge> edgeList = new LinkedList<Edge>();
+		for (Edge edge : adjList.get(n)) {
+			edgeList.add(edge);
+		}
+		return edgeList;
+	}
+	
+	// returns deep copy of the adjList of the graph
+	public HashMap<Node, LinkedList<Edge>> getAdjList() {
+		HashMap<Node, LinkedList<Edge>> adjL = new HashMap<Node, LinkedList<Edge>>();
+		for (Node node : adjList.keySet()) {
+			adjL.put(node, this.getEdgeList(node));
+		}
+		return adjL;
+	}
+	
 	@Override
 	public String toString ( ) {
 		StringBuilder result = new StringBuilder();
-		for ( int v = 0; v < this.numberOfVertices; v++) {
-			result.append("{[" + v);
-			result.append("]");
-			for ( Integer u : adjList[v]) {
-				result.append(" -> " + u);
-			}
-			result.append("} ");
+		for (Node n : adjList.keySet()) {
+			result.append("[" + n + " = ");
+			result.append(adjList.get(n));
+			result.append("]\n");
 		}
 		return result.toString();
 	}

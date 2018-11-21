@@ -25,7 +25,7 @@ public class Cyclicity {
 	
 	public static boolean isCyclic(Graph graph) {
 		adjList = graph.getAdjList();
-		int numberOfVertices = graph.getNumberOfVertices().intValue();
+		int numberOfVertices = graph.getNumberOfVertices();
 		visited = new boolean[numberOfVertices];
 		for ( int i = 0; i < numberOfVertices; i++) {
 			if ( !visited[i] ) {

@@ -1,7 +1,9 @@
 package Algorithms.Graph;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 // Adjacency list representation of graph
 
@@ -18,14 +20,28 @@ public class Graph {
 	}
 	
 	public boolean addNode( Node n ) {
-		if ( adjList.containsKey(n) ) return false;
+		if ( n == null ) {
+			System.err.println("null node.");
+			return false;
+		}
+		if ( adjList.containsKey(n) ) {
+			System.err.println(n + " already exists.");
+			return false;
+		}
 		adjList.put(n, new LinkedList<Edge>());
 		return true;
 	}
 
 	public boolean addEdge ( Edge e ) {
-		if ( !adjList.containsKey(e.getU()) || !adjList.containsKey(e.getV()) ) 
+		if ( e == null ) {
+			System.err.println( "edge can't be null " );
 			return false;
+		}
+		if ( !adjList.containsKey(e.getU()) || !adjList.containsKey(e.getV()) ) {
+			if ( !adjList.containsKey(e.getV()) ) 
+				System.err.println("Node " + e.getU() + " and " + e.getV() + " doesn't exist in the graph.");
+			else 
+		}
 		LinkedList<Edge> edgeList = adjList.get(e.getU());
 		edgeList.add(e);
 		adjList.put(e.getU(), edgeList);
@@ -86,15 +102,22 @@ public class Graph {
 		return adjL;
 	}
 	
+	public Set<Node> getNodes() {
+		HashSet<Node> hs = new HashSet<Node>();
+		for (Node n : adjList.keySet()) hs.add(n);
+		return hs;
+	}
+	
 	@Override
 	public String toString ( ) {
 		StringBuilder result = new StringBuilder();
+		result.append("{\n");
 		for (Node n : adjList.keySet()) {
 			result.append("[" + n + " = ");
 			result.append(adjList.get(n));
 			result.append("]\n");
 		}
+		result.append("}");
 		return result.toString();
 	}
-
 }

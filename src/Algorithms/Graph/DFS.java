@@ -22,7 +22,7 @@ public class DFS {
 
 	public static void depthFirstSearch ( Graph graph, Integer start ) {
 		if ( !graph.contains(start) ) return;
-		visited = new boolean[ graph.getNumberOfVertices().intValue() ];
+		visited = new boolean[ graph.getNumberOfVertices() ];
 		adjList = graph.getAdjList();
 		System.out.print("[");
 		_depthFirstSearch(start);

@@ -1,4 +1,4 @@
-package Algorithms.DynamicProgramming;
+package ADS.DynamicProgramming;
 
 
 public class LongestPalindromicSubsequence {

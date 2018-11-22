@@ -1,4 +1,4 @@
-package Algorithms.Graph;
+package ADS.Graph;
 
 public class Node {
 	// Unique number identifying a node it must be unique 

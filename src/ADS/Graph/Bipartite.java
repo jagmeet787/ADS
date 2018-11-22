@@ -1,4 +1,4 @@
-package Algorithms.Graph;
+package ADS.Graph;
 
 import java.util.Arrays;
 import java.util.LinkedList;

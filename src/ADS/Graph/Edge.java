@@ -1,4 +1,4 @@
-package Algorithms.Graph;
+package ADS.Graph;
 
 public class Edge {
 	final Node u; // starting vertex

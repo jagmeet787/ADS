@@ -33,16 +33,25 @@ public class Graph {
 	}
 
 	public boolean addEdge ( Edge e ) {
+		System.out.println("Adding edge " + e);
 		if ( e == null ) {
 			System.err.println( "edge can't be null " );
 			return false;
 		}
 		if ( !adjList.containsKey(e.getU()) || !adjList.containsKey(e.getV()) ) {
-			if ( !adjList.containsKey(e.getV()) ) 
+			if ( !adjList.containsKey(e.getU()) && !adjList.containsKey(e.getV())) 
 				System.err.println("Node " + e.getU() + " and " + e.getV() + " doesn't exist in the graph.");
+			else if ( !adjList.containsKey(e.getU()) )
+				System.err.println("Node " + e.getU() + " doesn't exist in the graph.");
 			else 
+				System.err.println("Node " + e.getV() + " doesn't exist in the graph.");		
+			return false;
 		}
 		LinkedList<Edge> edgeList = adjList.get(e.getU());
+		if ( edgeList.contains(e) ) {
+			System.err.println("Edge " + e + " already exists!");
+			return false;
+		}
 		edgeList.add(e);
 		adjList.put(e.getU(), edgeList);
 		if ( !directed ) {

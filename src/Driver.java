@@ -19,16 +19,15 @@ public class Driver {
 		g.addEdge(new Edge(n1, n2, 5));
 		g.addEdge(new Edge(n2, n3, 6));
 		g.addEdge(new Edge(n1, n3, 7));
+		g.addEdge(new Edge(n1, n3, 7));
+		Node nr = new Node(4, "A");
+		Node nt = new Node(1, "C");
+		if ( nt.equals(n1) ) System.out.println("Yes " + nt.hashCode() + " " + nr.hashCode());
+		else System.out.println("No " + nt.hashCode() + " " + nr.hashCode());
+		g.addNode(nr);
+		g.addNode(nt);
+		g.addEdge(new Edge(nr, nt, 8));
 		System.out.println(g);
-		HashMap<Node, LinkedList<Edge>> adjList = g.getAdjList();
-		adjList.remove(n4);
-		System.out.println(g);
-		System.out.println(adjList);
-		System.out.println(g.getAdjList());
-		Set<Node> hs = g.getNodes();
-		hs.remove(n4);
-		System.out.println(hs);
-		System.out.println(g.getNodes());
-		System.out.println(g.getAdjList());
+		
 	}
 }

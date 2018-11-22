@@ -1,6 +1,8 @@
 package Algorithms.Graph;
 
 public class Node {
+	// Unique number identifying a node it must be unique 
+	// in a graph
 	final int nodeNumber; // node number
 	final String label; // label or name of the node
 	int discoveryTime; // discovery time used in DFS
@@ -65,5 +67,31 @@ public class Node {
 	public String toString() {
 		 return "(" + this.nodeNumber + " " + this.label + ")";
 	}
+	
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (!Node.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+
+        final Node that = (Node) obj;
+        if (this.getNodeNumber() != that.getNodeNumber()) {
+            return false;
+        }
+//        if (!this.getLabel().equals(that.getLabel())) {
+//        	return false;
+//        }
+
+        return true;
+    }
+    
+    @Override
+    public int hashCode() {
+    	return this.getNodeNumber();
+    }
 
 }

@@ -1,11 +1,11 @@
 package ADS.Graph;
 
-public class Edge {
+public class Edge implements Comparable<Edge> {
 	final Node u; // starting vertex
 	final Node v;
-	final long weight;
+	final int weight;
 	
-	public Edge(Node u, Node v, long weight) {
+	public Edge(Node u, Node v, int weight) {
 		this.u = u;
 		this.v = v;
 		this.weight = weight;
@@ -19,7 +19,7 @@ public class Edge {
 		return v;
 	}
 
-	public long getWeight() {
+	public int getWeight() {
 		return weight;
 	}
 	
@@ -51,5 +51,10 @@ public class Edge {
         }
 
         return true;
+    }
+    
+    @Override
+    public int compareTo(Edge that) {
+    	return this.weight - that.getWeight();
     }
 }

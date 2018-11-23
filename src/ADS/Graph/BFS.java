@@ -1,17 +1,18 @@
 package ADS.Graph;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.logging.Level;
-
-import javax.naming.spi.DirStateFactory.Result;
 
 public class BFS {		
-	public static String breathFirstSearch ( Graph graph, int start ) {
-		boolean[] visited = new boolean[graph.getNumberOfVertices()];
-		LinkedList<Integer>[] adjList = graph.getAdjList();
-		LinkedList<Integer> queue = new LinkedList<Integer>();
-
-		visited[start] = true;
+	public static String breadthFirstSearch ( Graph graph, Node root ) {
+		if ( !graph.contains(root) ) {
+			System.err.println("Graph don't have node " + root);
+			return "[]";
+		}
+		HashMap<Node, LinkedList<Edge>> adjList = graph.getAdjList();
+		LinkedList<Node> queue = new LinkedList<Node>();
+		Node start = new Node(root);
+		start.setVisited(true);
 		queue.add(start);
 		
 		StringBuilder result = new StringBuilder();
@@ -19,80 +20,84 @@ public class BFS {
 		while(!queue.isEmpty()) {
 			start = queue.poll();
 			result.append(start + " ");
-			Iterator<Integer> it = adjList[start].listIterator();
+			Iterator<Edge> it = adjList.get(start).listIterator();
 			while(it.hasNext()) {
-				int node = it.next();
-				if(!visited[node]) {
-					visited[node] = true;
+				Node node = it.next().getV();
+				if(!node.isVisited()) {
+					node.setVisited(true);;
 					queue.add(node);
 				}
 			}
 		}
 		result.append("\b]");
+		graph.resetNodes();
 		return result.toString();
 	}
 	
 	// return BFS of complete graph in String
 	// System.out.println("BFS of all connected components : " + BFS.breadthFirstSearch(g));
 	public static String breadthFirstSearch( Graph graph ) {
-		boolean[] visited = new boolean[graph.getNumberOfVertices()];
-		LinkedList<Integer>[] adjList = graph.getAdjList();
-		LinkedList<Integer> queue = new LinkedList<Integer>();
+		HashMap<Node, LinkedList<Edge>> adjList = graph.getAdjList();
+		LinkedList<Node> queue = new LinkedList<Node>();
 
 		StringBuilder result = new StringBuilder();
-		for ( int i = 0; i < graph.getNumberOfVertices(); i++) {
-			if ( !visited[i] ) {
+		for ( Node n : adjList.keySet() ) {
+			if ( !n.isVisited() ) {
 				
 				result.append("[");
 				
-				int start = i;
-				visited[start] = true;
+				Node start = n;
+				
+				start.setVisited(true);
 				queue.add(start);
 				
 				while(!queue.isEmpty()) {
 					start = queue.poll();
 					result.append(start + " ");
-					Iterator<Integer> it = adjList[start].listIterator();
+					Iterator<Edge> it = adjList.get(start).listIterator();
 					
 					while(it.hasNext()) {
-						int node = it.next();
-						if(!visited[node]) {
-							visited[node] = true;
+						Node node = it.next().getV();
+						if(!node.isVisited()) {
+							node.setVisited(true);
 							queue.add(node);
 						}
 					}
 				}
-				result.append("\b]");
+				result.append("\b] ");
 			}
 		}
+		graph.resetNodes();
 		return result.toString();
 	}
 	
-	public static String levelOfEachNode ( Graph graph, int start ) {
-		boolean[] visited = new boolean[graph.getNumberOfVertices()];
-		LinkedList<Integer>[] adjList = graph.getAdjList();
-		LinkedList<Integer> queue = new LinkedList<Integer>();
-		int[] level = new int[graph.getNumberOfVertices()];
+	public static String levelOfEachNode ( Graph graph, Node start ) {
+		if ( !graph.contains(start) ) {
+			System.err.println("Graph don't have node " + start);
+			return "[]";
+		}
+		HashMap<Node, LinkedList<Edge>> adjList = graph.getAdjList();
+		LinkedList<Node> queue = new LinkedList<Node>();
 		StringBuilder result = new StringBuilder();
-		
-		visited[start] = true;
-		level[start] = 1;
+		start.setVisited(true);
+		start.setLevel(1);
 		queue.add(start);
 		result.append("(Node, Level) [");
 		while(!queue.isEmpty()) {
 			start = queue.poll();
-			result.append("(" + start + " " + level[start] + ") ");
-			Iterator<Integer> it = adjList[start].listIterator();
+			result.append("(" + start + " " + start.getLevel() + ") ");
+			Iterator<Edge> it = adjList.get(start).listIterator();
 			while(it.hasNext()) {
-				int node = it.next();
-				if(!visited[node]) {
-					level[node] = level[start] + 1;
-					visited[node] = true;
+				Node node = it.next().getV();
+				if(!node.isVisited()) {
+					node.setLevel(start.getLevel() + 1);
+					node.setVisited(true);
 					queue.add(node);
 				}
 			}
 		}
 		result.append("\b]");
+		graph.resetNodes();
 		return result.toString();
 	}
 }

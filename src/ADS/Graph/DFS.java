@@ -1,28 +1,31 @@
 package ADS.Graph;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
 public class DFS {
 	
 	static boolean[] visited;
-	static LinkedList<Integer>[] adjList;
+	static HashMap<Node, LinkedList<Edge>> adjList;
 	
-	private static void _depthFirstSearch ( Integer node ) {
-		visited[node] = true;
+	private static void _depthFirstSearch ( Node node ) {
+		node.setVisited(true);
 		System.out.print( node + " ");
-		ListIterator<Integer> it = adjList[node].listIterator();
+		ListIterator<Edge> it = adjList.get(node).listIterator();
 		while ( it.hasNext() ) {
-			Integer temp = it.next();
-			if ( !visited[temp] ) {
+			Node temp = it.next().getV();
+			if ( !temp.isVisited() ) {
 				_depthFirstSearch(temp);
 			}
 		}
 	}
 
-	public static void depthFirstSearch ( Graph graph, Integer start ) {
-		if ( !graph.contains(start) ) return;
-		visited = new boolean[ graph.getNumberOfVertices() ];
+	public static void depthFirstSearch ( Graph graph, Node start ) {
+		if ( !graph.contains(start) ) {
+			System.err.println("Graph don't have node " + start);
+			return;
+		}
 		adjList = graph.getAdjList();
 		System.out.print("[");
 		_depthFirstSearch(start);

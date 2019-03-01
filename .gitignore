@@ -23,3 +23,5 @@
 hs_err_pid*
 /bin/
 src/Driver.java
+.idea/workspace.xml
+.idea/vcs.xml

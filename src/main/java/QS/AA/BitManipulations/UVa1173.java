@@ -11,7 +11,7 @@ public class UVa1173 {
 
     // returns the integer at location in the squence starting from 0 to 2^(numberOfBits)
     // it is basically binary to gray conversion
-    public static int intAtLoc(int loc) {
+    private static int intAtLoc(int loc) {
         return loc ^ (loc >> 1);
     }
 

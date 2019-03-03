@@ -2,7 +2,7 @@ package ADS.BitManipulation;
 
 public class PowerSet {
 
-    private void _powerSetRecursive(int[] set, int at, boolean[] used) {
+    private static void _powerSetRecursive(int[] set, int at, boolean[] used) {
         if (at == set.length) {
             System.out.print("{");
             for (int i = 0; i < set.length; i++) {
@@ -20,11 +20,11 @@ public class PowerSet {
         }
     }
 
-    public void powerSetRecursive(int[] set) {
+    public static void powerSetRecursive(int[] set) {
         _powerSetRecursive(set, 0, new boolean[set.length]);
     }
 
-    public void powerSet(int[] set) {
+    public static void powerSet(int[] set) {
         int n = set.length;
         int numberSubsets = 1 << set.length;
         for (int i = 0; i < numberSubsets; i++) {

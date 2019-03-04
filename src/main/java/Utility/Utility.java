@@ -1,5 +1,6 @@
 package Utility;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -11,6 +12,20 @@ public class Utility {
 			System.out.println(Arrays.toString(arr[i]));
 		}
 	}
+
+	public static void printArray(int[] arr) {
+        System.out.print("[ ");
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println("]");
+    }
+
+	public static void swap(int[] arr, int index1, int index2) {
+	    int temp = arr[index1];
+	    arr[index1] = arr[index2];
+	    arr[index2] = temp;
+    }
 	
 	public static boolean integerOverflow(Integer a, Integer b) {
 		try {
@@ -20,6 +35,20 @@ public class Utility {
 		}
 		return false;
 	}
+
+	public static int factorial(int n) {
+	    int result = 1;
+        for (int i = 2; i <= n; i++)
+            result *= i;
+        return result;
+    }
+
+    public static BigInteger factorial(long n) {
+	    BigInteger result = BigInteger.ONE;
+        for (int i = 2; i <= n; i++)
+            result = result.multiply(BigInteger.valueOf(i));
+        return result;
+    }
 
 	public static boolean isPrime(int N) {
 	    if ( N <= 1 ) return false;

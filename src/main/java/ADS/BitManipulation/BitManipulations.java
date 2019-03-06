@@ -36,4 +36,25 @@ public class BitManipulations {
         if (number == 1) return true;
         return ((number - 1) & number) == 0;
     }
+
+    // count the number of set bits in the number
+    // n & (n - 1) removes the last set bit from the n
+    public static int numberOfSetBits(int number) {
+        int count = 0;
+        while(number > 0) {
+            count++;
+            number = number & (number - 1);
+        }
+        return count;
+    }
+
+    public static int[] xorSwapping(int[] arr, int index1, int index2) {
+        // a = a ^ b;
+        // b = a ^ b; // = (a ^ b) ^ b
+        // a = a ^ b; // = (a ^ b) ^ a
+        arr[index1] = arr[index1] ^ arr[index2];
+        arr[index2] = arr[index2] ^ arr[index1];
+        arr[index1] = arr[index1] ^ arr[index2];
+        return arr;
+    }
 }

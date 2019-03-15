@@ -48,6 +48,23 @@ public class BitManipulations {
         return count;
     }
 
+    public static int union(int bitSet1, int bitSet2) {
+        return bitSet1 | bitSet2;
+    }
+
+    public static int intersection(int bitSet1, int bitSet2) {
+        return bitSet1 & bitSet2;
+    }
+
+    public static int leastSignificantSetBit(int bitMask) {
+        return bitMask & (-bitMask);
+    }
+
+    // iterate through all the subsets of set size n
+    // for (int i = 0; i < (1 << n); i++)
+    // iterate through all the subsets of y excluding empty subset
+    // for (int i = y; i > 0; i = y & (i - 1))
+
     public static int[] xorSwapping(int[] arr, int index1, int index2) {
         // a = a ^ b;
         // b = a ^ b; // = (a ^ b) ^ b

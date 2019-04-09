@@ -5,6 +5,19 @@ import java.util.Arrays;
 import java.util.ArrayList;
 
 public class Utility {
+    public static final double EPS = 1e-9; // epsilon
+    // if double are equal
+    public static boolean isEqual(double a, double b) {
+        return Math.abs(a - b) < EPS;
+    }
+    // convert radian to degree
+    public static double radiansToDegree(double radian) {
+        return radian * ((180.0) / Math.PI);
+    }
+
+    public static double degreeToRadin(double degree) {
+        return degree * (Math.PI / 180.0);
+    }
 	// User Arrays.toString(arr) instead? for single array
 	// use Arrays.deepToString instead if single line op
 	public static <E> void printArray(E[][] arr){

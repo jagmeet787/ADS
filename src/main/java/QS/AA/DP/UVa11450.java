@@ -25,7 +25,7 @@ public class UVa11450 {
 			}
 			out.append(solve(M, C, price)).append('\n');
 		}
-		System.out.println(out);
+		System.out.print(out);
 	}
 
 	public static String solve(int M, int C, int[][] price) {

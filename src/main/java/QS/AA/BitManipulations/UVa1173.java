@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 //https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2114
 // Submission number 22876639
 public class UVa1173 {
-
+// class Main
     // returns the integer at location in the squence starting from 0 to 2^(numberOfBits)
     // it is basically binary to gray conversion
     private static int intAtLoc(int loc) {

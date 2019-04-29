@@ -1,4 +1,4 @@
-package QS.String;
+package QS.O.String;
 
 import java.util.PriorityQueue;
 

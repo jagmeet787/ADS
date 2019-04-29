@@ -1,4 +1,4 @@
-package QS.String;
+package QS.O.String;
 
 //https://www.geeksforgeeks.org/find-one-extra-character-string/
 public class FindExtraCharacter {

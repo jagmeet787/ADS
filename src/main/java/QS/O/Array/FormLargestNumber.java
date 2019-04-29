@@ -1,4 +1,4 @@
-package QS.Array;
+package QS.O.Array;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;

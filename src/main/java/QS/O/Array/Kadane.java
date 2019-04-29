@@ -1,4 +1,4 @@
-package QS.Array;
+package QS.O.Array;
 
 public class Kadane {
     public static int kadane(int[] arr) {

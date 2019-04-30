@@ -4,6 +4,66 @@ import Utility.Utility;
 
 import java.util.Comparator;
 
+// Integer
+class Point {
+    public int x;
+    public int y;
+    public Point(int _x, int _y){
+        x = _x; y = _y;
+    }
+
+
+    public double euclideanDistance(Point p) {
+        return Math.hypot(Math.abs(this.x - p.x), Math.abs(this.y - p.y));
+    }
+
+    public manhattanDistance(Point p) {
+        return Math.abs(this.x - p.x) + Math.abs(this.y - p.y);
+    }
+
+    /*
+    * orientation of 3 Points
+    * return 0 - Collinear
+    * return 1 - Clockwise
+    * return 2 - Counter Clockwise
+    */
+    public static int orientation(Point p1, Point p2, Point p3) {
+        long p1x = p1.x, p1y = p1.y;
+        long p2x = p2.x, p2y = p2.y;
+        long p3x = p3.x, p3y = p3.y;
+        long val = ((p2y - p1y) * (p3x - p2x) - (p3y - p2y) * (p2x - p1x));
+        if (val == 0) return 0;
+        return (val > 0) ? 1 : 2;
+    }
+
+    // Given three collinear points p, q, r, the function checks if
+    // point q lies on line segment 'pr'
+    public static boolean onSegment(Point p, Point q, Point r)
+    {
+        // check on x if q is in middle of p and r and same way for way
+        // if yes for both then it is on segment else not
+        if (q.x <= Math.max(p.x, r.x) && q.x >= Math.min(p.x, r.x) &&
+                q.y <= Math.max(p.y, r.y) && q.y >= Math.min(p.y, r.y))
+            return true;
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object anObject) {
+        if (this == anObject) return true;
+        if (anObject instanceof Point) {
+            Point p = (Point) anObject;
+            return this.x == p.x && this.y == p.y;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
+}
+/*
 public class Point implements Comparator<Point> {
     public double x, y;
     public Point() {}
@@ -104,3 +164,4 @@ public class Point implements Comparator<Point> {
         return "Point("  + x + ", " + y + ')';
     }
 }
+*/

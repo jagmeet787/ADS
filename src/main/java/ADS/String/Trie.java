@@ -2,6 +2,8 @@ package ADS.String;
 
 class Trie {
 
+	Node root;
+
 	class Node {
 		java.util.HashMap<Character, Node> children;
 		char ch;
@@ -34,18 +36,16 @@ class Trie {
 
 		@Override
 		public String toString() {
-			return "[" + ch + " : " + isWord + " : " + children + "]";
+			return "(" + ch + " : " + isWord + " : " + children + ")";
 		}
 	}
-
-	Node root;
 
 	public Trie() {
 		this.root = new Node('\0');
 	}
 
 	public boolean insert(String str) {
-		if (str == null) throw new IllegalArgumentException("Key can't be null.");
+		if (str == null) throw new IllegalArgumentException("Key can't be null");
 		Node node = root;
 		for(int i = 0; i < str.length(); i++) {
 			char ch = str.charAt(i);
@@ -58,7 +58,7 @@ class Trie {
 	}
 
 	public boolean isPrefix(String prefix) {
-		if (prefix == null) throw new IllegalArgumentException("prefix can't be null.");
+		if (prefix == null) throw new IllegalArgumentException("Prefix can't be null");
 		Node node = root;
 		for(int i = 0; i < prefix.length(); i++) {
 			char ch = prefix.charAt(i);
@@ -82,6 +82,7 @@ class Trie {
 
 	@Override
 	public String toString() {
+		// return root.toString();
 		return this.allStrings().toString();
 	}
 
@@ -120,9 +121,9 @@ class Trie {
 			}
 		}
 		char ch = key.charAt(depth);
-		if (_delete(node.getChild(ch), key, depth+1) == null && node.numChildren() == 1) {
+		if (_delete(node.getChild(ch), key, depth+1) == null) {
 			node.removeChild(ch);
-			if(!node.isWord) return null;
+			if(!node.isWord && node.children.size() == 0) return null;
 		}
 		return node;
 	}
@@ -131,17 +132,21 @@ class Trie {
 		Trie tr = new Trie();
 		tr.insert("hello");
 		tr.insert("aired");
-		tr.insert("zip");
-		tr.insert("ghiler");
-		tr.insert("hell");
-		// tr.insert("abc");
-		// tr.insert("aaa");
-		// System.out.println("isPrefix: " + tr.isPrefix("shil"));
-		System.out.println(tr.allStrings());
+		System.out.println("isPrefix: " + tr.isPrefix("shil"));
+		//System.out.println(tr.allStrings());
 		tr.delete("hell");
 		// System.out.println("contains: " + tr.contains("zip"));
-		System.out.println("contains: " + tr.contains("hell"));
+		//System.out.println("contains: " + tr.contains("hell"));
+		tr.delete("hell");
+		System.out.println(tr.root);
+		tr.delete("hello");
+		System.out.println(tr.root);
 		System.out.println(tr);
-		// System.out.println(tr.root);
+		tr.delete("ghiler");
+		tr.delete("aired");
+		tr.delete("aaa");
+		tr.delete("zip");
+		System.out.println(tr);
+		System.out.println(tr.root);
 	}
 }

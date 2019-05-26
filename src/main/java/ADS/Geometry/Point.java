@@ -17,9 +17,17 @@ class Point {
         return Math.hypot(Math.abs(this.x - p.x), Math.abs(this.y - p.y));
     }
 
-    public manhattanDistance(Point p) {
+    public double manhattanDistance(Point p) {
         return Math.abs(this.x - p.x) + Math.abs(this.y - p.y);
     }
+
+    public int cross(Point p) {
+        return (this.x * p.y) - (p.x * this.y);
+    }
+
+    public static int cross(Point a, Point b) {
+        return (a.x * b.y) - (a.y * b.x);
+    } 
 
     /*
     * orientation of 3 Points
@@ -57,6 +65,21 @@ class Point {
         }
         return false;
     }
+
+    // returns true if p1-q1 and p2-q2 segments intersect
+    public static boolean intersect(Point p1, Point q1, Point p2, Point q2) { 
+        int o1 = orientation(p1, q1, p2); 
+        int o2 = orientation(p1, q1, q2); 
+        int o3 = orientation(p2, q2, p1); 
+        int o4 = orientation(p2, q2, q1); 
+        if (o1 != o2 && o3 != o4) 
+            return true; 
+        if (o1 == 0 && onSegment(p1, p2, q1)) return true; 
+        if (o2 == 0 && onSegment(p1, q2, q1)) return true; 
+        if (o3 == 0 && onSegment(p2, p1, q2)) return true; 
+        if (o4 == 0 && onSegment(p2, q1, q2)) return true; 
+        return false;
+    } 
 
     @Override
     public String toString() {

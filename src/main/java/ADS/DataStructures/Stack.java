@@ -1,10 +1,16 @@
-package ADS.DataStructures;
+// package ADS.DataStructures;
 
 class Stack {
     int[] arr;
     int top, n;
+
+    public Stack() {
+        this(1000_000);
+    }
     
     public Stack(int capacity) {
+        if (capacity <= 0)
+            throw new IllegalArgumentException("capacity should be greater than 0.");
         this.n = capacity;
         arr = new int[n];
         this.top = 0;

@@ -1,10 +1,16 @@
-package ADS.DataStructures;
+// package ADS.DataStructures;
 
 class Queue {
     int[] arr;
     int front, back, n;
     
+    public Queue() {
+        this(1000_000);
+    }
+
     public Queue(int capacity) {
+        if (capacity <= 0)
+            throw new IllegalArgumentException("capacity should be greater than 0.");
         this.n = capacity + 1;
         arr = new int[n];
         this.front = this.back = 0;

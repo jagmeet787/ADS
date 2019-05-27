@@ -1,4 +1,4 @@
-// package ADS.DataStructures;
+package ADS.DataStructures;
 
 class Stack {
     int[] arr;

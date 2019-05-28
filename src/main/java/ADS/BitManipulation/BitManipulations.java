@@ -37,6 +37,23 @@ public class BitManipulations {
         return ((number - 1) & number) == 0;
     }
 
+    // Integer.highestOneBit(int num)
+    public static int highestSetBit(int n) {
+        // 32 bit number
+        n |= (n >> 1); n |= (n >> 2);
+        n |= (n >> 4);
+        n |= (n >> 8); n |= (n >> 16);
+        return (n - (n >>> 1));
+    }
+
+    public static long highestSetBit(long n) {
+        // 64 bit number
+        n |= (n >>  1); n |= (n >>  2);
+        n |= (n >>  4); n |= (n >>  8);
+        n |= (n >> 16); n |= (n >> 32);
+        return (n - (n >>> 1));   
+    }
+
     // count the number of set bits in the number
     // n & (n - 1) removes the last set bit from the n
     public static int numberOfSetBits(int number) {
